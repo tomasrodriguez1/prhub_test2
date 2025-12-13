@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { formatCurrency, formatDate } from '../lib/utils';
-import { ArrowLeft, TrendingUp, Eye, MousePointerClick, Heart, DollarSign } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Eye, Heart, DollarSign } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 

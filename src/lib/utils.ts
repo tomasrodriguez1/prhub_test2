@@ -36,10 +36,10 @@ export function getDaysUntil(date: string): number {
 }
 
 export function calculateDSO(invoices: { fecha: string; estado: string }[]): number {
-  const paidInvoices = invoices.filter(inv => inv.estado === 'paid');
+  const paidInvoices = invoices.filter((inv) => inv.estado === 'paid');
   if (paidInvoices.length === 0) return 0;
   
-  const totalDays = paidInvoices.reduce((sum, inv) => {
+  const totalDays = paidInvoices.reduce((sum) => {
     // Simulación: asumimos que el pago fue 30 días después de la factura
     return sum + 30;
   }, 0);

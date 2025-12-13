@@ -5,14 +5,14 @@ import { Input } from '../components/ui/input';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
-import { formatCurrency, formatDate, getDaysUntil } from '../lib/utils';
+import { formatCurrency, formatDate } from '../lib/utils';
 import { Plus, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import { Select } from '../components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../components/ui/sheet';
 
 export function InvoicesPage() {
-  const { invoices, brands, projects, payments, addInvoice, addPayment } = useStore();
+  const { invoices, brands, payments, addPayment } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [createDialogOpen, setCreateDialogOpen] = useState(false);

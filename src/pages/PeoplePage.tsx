@@ -8,11 +8,10 @@ import { Button } from '../components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { Plus, Search, User, Mail, Phone } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
-import { Select } from '../components/ui/select';
 import { formatDate } from '../lib/utils';
 
 export function PeoplePage() {
-  const { people, tasks, projects } = useStore();
+  const { people, tasks } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(null);

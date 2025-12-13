@@ -4,7 +4,7 @@ import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { formatCurrency, formatDate, calculateDSO } from '../lib/utils';
-import { TrendingUp, TrendingDown, DollarSign, FileText, Clock, Building2, FolderKanban, Users } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, FileText, Clock, Building2, FolderKanban } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 export function DashboardPage() {
@@ -45,8 +45,8 @@ export function DashboardPage() {
       .reduce((sum, inv) => sum + inv.total, 0);
 
     // LTV por marca (suma de facturado por marca)
-    const ltvPorMarca = brands.reduce((acc, brand) => {
-      const brandInvoices = invoices.filter((inv) => inv.brandId === brand.id);
+    const ltvPorMarca = brands.reduce(() => {
+      const brandInvoices = invoices.filter((inv) => inv.brandId);
       const total = brandInvoices.reduce((sum, inv) => sum + inv.total, 0);
       return total;
     }, 0);

@@ -3,7 +3,7 @@ import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { formatCurrency, formatDate } from '../lib/utils';
-import { ArrowLeft, Building2, FileText, FolderKanban, Users, Calendar, DollarSign } from 'lucide-react';
+import { ArrowLeft, FileText, FolderKanban, Users, DollarSign } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 
@@ -31,9 +31,6 @@ export function BrandDetailPage() {
 
   // KPIs de marca
   const totalFacturado = brandInvoices.reduce((sum, inv) => sum + inv.total, 0);
-  const totalPagado = brandInvoices
-    .filter((inv) => inv.estado === 'paid')
-    .reduce((sum, inv) => sum + inv.total, 0);
   const pendiente = brandInvoices
     .filter((inv) => inv.estado !== 'paid')
     .reduce((sum, inv) => sum + inv.total, 0);

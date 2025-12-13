@@ -22,7 +22,6 @@ import { GripVertical, User } from 'lucide-react';
 
 interface KanbanBoardProps {
   tasks: Task[];
-  projectId: string;
 }
 
 const columns: { id: TaskStatus; title: string }[] = [
@@ -32,7 +31,7 @@ const columns: { id: TaskStatus; title: string }[] = [
   { id: 'done', title: 'Completadas' },
 ];
 
-export function KanbanBoard({ tasks, projectId }: KanbanBoardProps) {
+export function KanbanBoard({ tasks }: KanbanBoardProps) {
   const { moveTask } = useStore();
   const [activeId, setActiveId] = useState<string | null>(null);
 

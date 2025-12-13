@@ -14,7 +14,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 
 export function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const { projects, brands, tasks, projectInfluencers, influencers, people, addTask } = useStore();
+  const { projects, brands, tasks, projectInfluencers, influencers } = useStore();
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
 
   const project = projects.find((p) => p.id === id);
@@ -103,7 +103,7 @@ export function ProjectDetailPage() {
           </Button>
         </CardHeader>
         <CardContent>
-          <KanbanBoard tasks={projectTasks} projectId={project.id} />
+          <KanbanBoard tasks={projectTasks} />
         </CardContent>
       </Card>
 

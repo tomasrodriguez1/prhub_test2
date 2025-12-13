@@ -12,7 +12,7 @@ import { Select } from '../components/ui/select';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../components/ui/sheet';
 
 export function InvoicesPage() {
-  const { invoices, brands, payments, addPayment } = useStore();
+  const { invoices, brands, payments } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [createDialogOpen, setCreateDialogOpen] = useState(false);

@@ -7,9 +7,9 @@ Panel de administración para gestión de marcas e influencers. Aplicación SPA 
 - **Dashboard con KPIs**: Métricas en tiempo real (facturado, pendientes, LTV, DSO, margen, etc.)
 - **Gestión de Marcas**: Lista, detalle con timeline de historial y KPIs por marca
 - **Proyectos con Kanban**: Gestión de tareas con drag & drop usando dnd-kit
+- **Equipo**: Gestión de personas con asignación de tareas
 - **Influencers**: Directorio con métricas y historial de rendimiento
 - **Facturación**: Gestión de facturas y registro de pagos
-- **PWA**: Aplicación web progresiva con soporte offline básico
 - **Tema Claro/Oscuro**: Persistente en localStorage
 - **Atajos de Teclado**: Navegación rápida y command palette
 
@@ -21,7 +21,6 @@ Panel de administración para gestión de marcas e influencers. Aplicación SPA 
 - **UI**: TailwindCSS + componentes estilo shadcn
 - **Gráficos**: Recharts
 - **Drag & Drop**: dnd-kit
-- **PWA**: vite-plugin-pwa
 
 ## Instalación
 
@@ -124,8 +123,8 @@ src/
 - `g + b`: Ir a Marcas
 - `g + p`: Ir a Proyectos
 - `g + i`: Ir a Influencers
+- `g + e`: Ir a Equipo
 - `g + f`: Ir a Facturación
-- `n`: Crear nuevo item (en páginas que lo soporten)
 
 ## Datos Mock
 

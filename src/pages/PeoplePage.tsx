@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Input } from '../components/ui/input';
 import { Badge } from '../components/ui/badge';
 import { Button } from '../components/ui/button';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { Plus, Search, User, Mail, Phone } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
 import { formatDate } from '../lib/utils';

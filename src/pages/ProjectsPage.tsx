@@ -8,7 +8,7 @@ import { Button } from '../components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { formatCurrency } from '../lib/utils';
 import { Plus, Search } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../components/ui/dialog';
+import { Select } from '../components/ui/select';
 
 export function ProjectsPage() {
   const { projects, brands, tasks } = useStore();

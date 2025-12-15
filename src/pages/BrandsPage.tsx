@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
@@ -13,6 +13,7 @@ import { Select } from '../components/ui/select';
 
 export function BrandsPage() {
   const { brands, invoices } = useStore();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
@@ -70,6 +71,7 @@ export function BrandsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Lista de Marcas ({filteredBrands.length})</CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">Presiona una fila para ver más detalle</p>
         </CardHeader>
         <CardContent>
           <Table>
@@ -80,20 +82,19 @@ export function BrandsPage() {
                 <TableHead>País</TableHead>
                 <TableHead>Estado</TableHead>
                 <TableHead>Facturado</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredBrands.map((brand) => (
-                <TableRow key={brand.id}>
-                  <TableCell className="font-medium">
-                    <Link to={`/brands/${brand.id}`} className="hover:underline">
-                      {brand.nombre}
-                    </Link>
-                  </TableCell>
+                <TableRow 
+                  key={brand.id}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => navigate(`/brands/${brand.id}`)}
+                >
+                  <TableCell className="font-medium">{brand.nombre}</TableCell>
                   <TableCell>{brand.sector}</TableCell>
                   <TableCell>{brand.pais}</TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <Badge
                       variant={
                         brand.estado === 'active'
@@ -107,13 +108,6 @@ export function BrandsPage() {
                     </Badge>
                   </TableCell>
                   <TableCell>{formatCurrency(getBrandRevenue(brand.id))}</TableCell>
-                  <TableCell className="text-right">
-                    <Link to={`/brands/${brand.id}`}>
-                      <Button variant="ghost" size="sm">
-                        Ver Detalle
-                      </Button>
-                    </Link>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
@@ -15,6 +15,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 export function ProjectDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { projects, brands, tasks, projectInfluencers, influencers } = useStore();
+  const navigate = useNavigate();
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
 
   const project = projects.find((p) => p.id === id);
@@ -114,6 +115,7 @@ export function ProjectDetailPage() {
             <Users className="h-5 w-5" />
             Influencers Asignados
           </CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">Presiona una fila para ver más detalle</p>
         </CardHeader>
         <CardContent>
           <Table>
@@ -122,22 +124,18 @@ export function ProjectDetailPage() {
                 <TableHead>Nombre</TableHead>
                 <TableHead>Rol</TableHead>
                 <TableHead>Costo Acuerdo</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {projectInfs.map((pi) => (
-                <TableRow key={`${pi.projectId}-${pi.influencerId}`}>
+                <TableRow 
+                  key={`${pi.projectId}-${pi.influencerId}`}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => navigate(`/influencers/${pi.influencerId}`)}
+                >
                   <TableCell className="font-medium">{pi.influencer!.nombre}</TableCell>
                   <TableCell>{pi.rol}</TableCell>
                   <TableCell>{formatCurrency(pi.costoAcuerdo)}</TableCell>
-                  <TableCell className="text-right">
-                    <Link to={`/influencers/${pi.influencerId}`}>
-                      <Button variant="ghost" size="sm">
-                        Ver Detalle
-                      </Button>
-                    </Link>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

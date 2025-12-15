@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
@@ -12,6 +12,7 @@ import { Select } from '../components/ui/select';
 
 export function ProjectsPage() {
   const { projects, brands, tasks } = useStore();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
 
@@ -76,6 +77,7 @@ export function ProjectsPage() {
       <Card>
         <CardHeader>
           <CardTitle>Lista de Proyectos ({filteredProjects.length})</CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">Presiona una fila para ver más detalle</p>
         </CardHeader>
         <CardContent>
           <Table>
@@ -87,7 +89,6 @@ export function ProjectsPage() {
                 <TableHead>Progreso</TableHead>
                 <TableHead>Presupuesto</TableHead>
                 <TableHead>Gastado</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -96,14 +97,14 @@ export function ProjectsPage() {
                 const progress = getProjectProgress(project.id);
                 const spent = getProjectSpent(project.id);
                 return (
-                  <TableRow key={project.id}>
-                    <TableCell className="font-medium">
-                      <Link to={`/projects/${project.id}`} className="hover:underline">
-                        {project.nombre}
-                      </Link>
-                    </TableCell>
+                  <TableRow 
+                    key={project.id}
+                    className="cursor-pointer hover:bg-muted/50"
+                    onClick={() => navigate(`/projects/${project.id}`)}
+                  >
+                    <TableCell className="font-medium">{project.nombre}</TableCell>
                     <TableCell>{brand?.nombre || 'N/A'}</TableCell>
-                    <TableCell>
+                    <TableCell onClick={(e) => e.stopPropagation()}>
                       <Badge
                         variant={
                           project.estado === 'active'
@@ -129,13 +130,6 @@ export function ProjectsPage() {
                     </TableCell>
                     <TableCell>{formatCurrency(project.presupuesto)}</TableCell>
                     <TableCell>{formatCurrency(spent)}</TableCell>
-                    <TableCell className="text-right">
-                      <Link to={`/projects/${project.id}`}>
-                        <Button variant="ghost" size="sm">
-                          Ver Detalle
-                        </Button>
-                      </Link>
-                    </TableCell>
                   </TableRow>
                 );
               })}

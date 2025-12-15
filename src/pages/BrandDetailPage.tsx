@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
@@ -10,6 +10,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 export function BrandDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { brands, invoices, projects, brandHistories, projectInfluencers, influencers } = useStore();
+  const navigate = useNavigate();
 
   const brand = brands.find((b) => b.id === id);
   if (!brand) {
@@ -170,6 +171,7 @@ export function BrandDetailPage() {
       <Card>
         <CardHeader>
           <CardTitle>Influencers Recurrentes</CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">Presiona una fila para ver más detalle</p>
         </CardHeader>
         <CardContent>
           <Table>
@@ -179,23 +181,19 @@ export function BrandDetailPage() {
                 <TableHead>Plataformas</TableHead>
                 <TableHead>Alcance</TableHead>
                 <TableHead>Tarifa Base</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {brandInfluencers.map((inf) => (
-                <TableRow key={inf!.id}>
+                <TableRow 
+                  key={inf!.id}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => navigate(`/influencers/${inf!.id}`)}
+                >
                   <TableCell className="font-medium">{inf!.nombre}</TableCell>
                   <TableCell>{inf!.plataformas.join(', ')}</TableCell>
                   <TableCell>{inf!.alcance.toLocaleString()}</TableCell>
                   <TableCell>{formatCurrency(inf!.tarifaBase)}</TableCell>
-                  <TableCell className="text-right">
-                    <Link to={`/influencers/${inf!.id}`}>
-                      <Button variant="ghost" size="sm">
-                        Ver Detalle
-                      </Button>
-                    </Link>
-                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

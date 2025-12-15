@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../store/useStore';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
@@ -11,6 +11,7 @@ import { Plus, Search } from 'lucide-react';
 
 export function InfluencersPage() {
   const { influencers } = useStore();
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredInfluencers = influencers.filter((inf) =>
@@ -50,6 +51,7 @@ export function InfluencersPage() {
       <Card>
         <CardHeader>
           <CardTitle>Lista de Influencers ({filteredInfluencers.length})</CardTitle>
+          <p className="text-sm text-muted-foreground mt-2">Presiona una fila para ver más detalle</p>
         </CardHeader>
         <CardContent>
           <Table>
@@ -60,21 +62,20 @@ export function InfluencersPage() {
                 <TableHead>Alcance</TableHead>
                 <TableHead>Tarifa Base</TableHead>
                 <TableHead>Etiquetas</TableHead>
-                <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {filteredInfluencers.map((influencer) => (
-                <TableRow key={influencer.id}>
-                  <TableCell className="font-medium">
-                    <Link to={`/influencers/${influencer.id}`} className="hover:underline">
-                      {influencer.nombre}
-                    </Link>
-                  </TableCell>
+                <TableRow 
+                  key={influencer.id}
+                  className="cursor-pointer hover:bg-muted/50"
+                  onClick={() => navigate(`/influencers/${influencer.id}`)}
+                >
+                  <TableCell className="font-medium">{influencer.nombre}</TableCell>
                   <TableCell>{influencer.plataformas.join(', ')}</TableCell>
                   <TableCell>{influencer.alcance.toLocaleString()}</TableCell>
                   <TableCell>{formatCurrency(influencer.tarifaBase)}</TableCell>
-                  <TableCell>
+                  <TableCell onClick={(e) => e.stopPropagation()}>
                     <div className="flex flex-wrap gap-1">
                       {influencer.etiquetas.slice(0, 2).map((tag) => (
                         <Badge key={tag} variant="outline" className="text-xs">
@@ -87,13 +88,6 @@ export function InfluencersPage() {
                         </Badge>
                       )}
                     </div>
-                  </TableCell>
-                  <TableCell className="text-right">
-                    <Link to={`/influencers/${influencer.id}`}>
-                      <Button variant="ghost" size="sm">
-                        Ver Detalle
-                      </Button>
-                    </Link>
                   </TableCell>
                 </TableRow>
               ))}

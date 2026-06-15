@@ -169,6 +169,23 @@ export function AppLayout({ children }: AppLayoutProps) {
         <div className="container mx-auto p-4 md:p-6">{children}</div>
       </main>
 
+      {/* Footer */}
+      <footer className={cn('border-t bg-card py-4', !isMobile && 'ml-64', isMobile && 'pb-20')}>
+        <div className="container mx-auto px-4 md:px-6">
+          <p className="text-center text-sm text-muted-foreground">
+            Made By{' '}
+            <a
+              href="https://zalantos.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              zalantos
+            </a>
+          </p>
+        </div>
+      </footer>
+
       {/* Mobile Bottom Navigation */}
       {isMobile && (
         <nav className="fixed bottom-0 left-0 right-0 z-40 border-t bg-card">
